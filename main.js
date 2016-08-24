@@ -9,7 +9,7 @@ var fs = require('fs');
  */
 module.exports = function(feed, rawFilters) {
 	return new Promise((resolve, reject) => {
-		var out;
+		var out = false;
 		var filters = parseFilters(rawFilters)
 		try {
 			if(filters === false) {
@@ -19,13 +19,15 @@ module.exports = function(feed, rawFilters) {
 			request.get(feed)
 				.on('error', function (error) {
 					if(error)	{
-						console.error(error);
+						reject(error);
+						return false;
 					}
 				})
 				.pipe(new FeedParser())
 				.on('error', function (error) {
 					if(error)	{
-						console.error(error);
+						reject(error);
+						return false;
 					}
 				})
 				.on('meta', function (meta) {
@@ -41,6 +43,9 @@ module.exports = function(feed, rawFilters) {
 					}
 				})
 				.on('end', function() {
+					if(out === false) {
+						return false;
+					}
 					resolve(out.xml());
 				});
 		} catch(e) {
@@ -93,7 +98,7 @@ function checkFeedItem(item, filters) {
 
 	// First, filter out any entry which is excluded
 	for(let e of Object.keys(filters.exclude)) {
-		let rex = new RegExp(filters.exclude[i], 'gi');
+		let rex = new RegExp(filters.exclude[e].substr(1), 'gi');
 		if(rex.test(content)) {
 			return false;
 		}
@@ -106,7 +111,6 @@ function checkFeedItem(item, filters) {
 			return true;
 		}
 	}
-
 	// If we've fallen all the way through, there was no match.
 	return false;
 }
