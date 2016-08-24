@@ -6,7 +6,7 @@
 <script type="text/javascript">_uacct = "UA-168906-6";urchinTracker();</script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 </head>
-<body >
+<body>
 
 <script>
 function textfocus(element)
@@ -61,7 +61,7 @@ function init_search()
 	{
 		search.className="exampleMode smalltext " + document.getElementById('search_class').value;
 		document.getElementById('search_ticker').value=0;
-		search.value="Example:\n\n     sample\n     free\n     for.s\n     -artichokes\n\nThe above filter would search for feed entries that contain both \'sample\' and \'free\'.  It would also return any entry containing the words \'fords\' or \'forts\' due to regular expression matching.\n\nAdding a minus sign to the beginning of any filter line inverts that match, so entries with the word artichokes are omitted.";
+		search.value="Example:\n\n     sample\n     free\n     for.s\n     -artichokes\n\nThe above filter would search for feed entries that contain both \'sample\' and \'free\'.  It would also return any entry containing the words \'forks\' or \'forts\' due to regular expression matching.\n\nAdding a minus sign to the beginning of any filter line inverts that match, so entries with the word artichokes are omitted.";
 	} else {
 		document.getElementById('search_ticker').value = 1;
 	}
@@ -116,10 +116,12 @@ init_url();
 
 | &copy;2006<span id='year'></span> FeedSifter.com
 | By <a href="https://twitter.com/IanAMaddox">Ian Maddox</a>
+| <span style="vertical-align: middle"><a class="github-button" href="https://github.com/ianmaddox/feedsifter" data-icon="octicon-repo-forked" aria-label="Follow ianmaddox/feedsifter on GitHub" style="vertical-align: middle">Source Code</a></span>
 |
 </div>
 <script>
 $("#year").html(" - " + new Date().getFullYear());
 </script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
