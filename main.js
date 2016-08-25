@@ -38,7 +38,18 @@ module.exports = function(feed, rawFilters) {
 					var item;
 					while (item = stream.read()) {
 						if(checkFeedItem(item, filters)) {
-							out.item(JSON.parse(JSON.stringify(item)));
+							let newItem = {
+								title: nab(item.title),
+								description: nab(item.description),
+								date: nab(feed.date),
+								url: nab(item.link),
+								site_url: nab(item.xmlurl),
+								image_url: nab(item.image),
+								copyright: nab(item.copyright),
+								language: nab(item.language),
+								categories: nab(item.categories),
+							};
+							out.item(newItem);
 						}
 					}
 				})
@@ -53,6 +64,10 @@ module.exports = function(feed, rawFilters) {
 		}
 	});
 };
+
+function nab(v) {
+	return v === undefined || v === null ? '' : v;
+}
 
 /**
  * Interpret the filters sent in by the user
